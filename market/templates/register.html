@@ -1,0 +1,26 @@
+{% extends "base.html" %} {% block title %} Register Page {% endblock %} {%
+block content %}
+<body class="text-center">
+  <div class="container">
+    <form method="POST" class="form-register" style="color: white">
+      <img
+        class="my-4"
+        src="https://img.freepik.com/free-vector/enter-otp-concept-illustration_114360-7877.jpg?t=st=1739559251~exp=1739562851~hmac=798bfda1ba90511e7e58d98690f95f5fa2fadc783b4da0639f22df79c2cb7f46&w=740"
+        alt="Register Image"
+        height="100px"
+        width="300px"
+      />
+      <h1 class="h3 mb-3 font-weight-bold">Please Create Your Account</h1>
+      <br />
+      {{ form.username.label() }} {{ form.username(class="form-control",
+      placeholder="Username") }} {{ form.email_address.label() }} {{
+      form.email_address(class="form-control", placeholder="Email") }} {{
+      form.password1.label() }} {{ form.password1(class="form-control",
+      placeholder="Password") }} {{ form.password2.label() }} {{
+      form.password2(class="form-control", placeholder="Confirm Password") }}
+      <br />
+      {{ form.submit(class="btn btn-lg btn-block btn-primary") }}
+    </form>
+  </div>
+</body>
+{% endblock %}
