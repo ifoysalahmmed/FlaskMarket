@@ -1,26 +1,53 @@
 {% extends "base.html" %} {% block title %} Register Page {% endblock %} {%
 block content %}
-<body class="text-center">
-  <div class="container">
-    <form method="POST" class="form-register" style="color: white">
-      <img
-        class="my-4"
-        src="https://img.freepik.com/free-vector/enter-otp-concept-illustration_114360-7877.jpg?t=st=1739559251~exp=1739562851~hmac=798bfda1ba90511e7e58d98690f95f5fa2fadc783b4da0639f22df79c2cb7f46&w=740"
-        alt="Register Image"
-        height="100px"
-        width="300px"
-      />
-      <h1 class="h3 mb-3 font-weight-bold">Please Create Your Account</h1>
-      <br />
+<div class="container mt-5">
+  <form method="POST" class="form-register text-center" style="color: white">
+    {{ form.hidden_tag() }}
+
+    <!-- Registration Image -->
+    <img
+      class="my-4"
+      src="https://img.freepik.com/free-vector/enter-otp-concept-illustration_114360-7877.jpg?t=st=1739559251~exp=1739562851~hmac=798bfda1ba90511e7e58d98690f95f5fa2fadc783b4da0639f22df79c2cb7f46&w=740"
+      alt="Register Image"
+      height="100px"
+      width="300px"
+    />
+
+    <!-- Form Title -->
+    <h1 class="h3 mb-3 font-weight-bold">Please Create Your Account</h1>
+
+    <!-- Username Field -->
+    <div class="form-group">
       {{ form.username.label() }} {{ form.username(class="form-control",
-      placeholder="Username") }} {{ form.email_address.label() }} {{
-      form.email_address(class="form-control", placeholder="Email") }} {{
-      form.password1.label() }} {{ form.password1(class="form-control",
-      placeholder="Password") }} {{ form.password2.label() }} {{
-      form.password2(class="form-control", placeholder="Confirm Password") }}
-      <br />
+      placeholder="Username") }} {% for error in form.username.errors %} {%
+      endfor %}
+    </div>
+
+    <!-- Email Field -->
+    <div class="form-group">
+      {{ form.email_address.label() }} {{
+      form.email_address(class="form-control", placeholder="Email") }} {% for
+      error in form.email_address.errors %} {% endfor %}
+    </div>
+
+    <!-- Password Field -->
+    <div class="form-group">
+      {{ form.password1.label() }} {{ form.password1(class="form-control",
+      placeholder="Password") }} {% for error in form.password1.errors %} {%
+      endfor %}
+    </div>
+
+    <!-- Confirm Password Field -->
+    <div class="form-group">
+      {{ form.password2.label() }} {{ form.password2(class="form-control",
+      placeholder="Confirm Password") }} {% for error in form.password2.errors
+      %} {% endfor %}
+    </div>
+
+    <!-- Submit Button -->
+    <div class="form-group">
       {{ form.submit(class="btn btn-lg btn-block btn-primary") }}
-    </form>
-  </div>
-</body>
+    </div>
+  </form>
+</div>
 {% endblock %}
