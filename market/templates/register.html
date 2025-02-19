@@ -6,11 +6,9 @@ block content %}
 
     <!-- Registration Image -->
     <img
-      class="my-4"
-      src="https://img.freepik.com/free-vector/enter-otp-concept-illustration_114360-7877.jpg?t=st=1739559251~exp=1739562851~hmac=798bfda1ba90511e7e58d98690f95f5fa2fadc783b4da0639f22df79c2cb7f46&w=740"
-      alt="Register Image"
-      height="100px"
-      width="300px"
+      class="mb-4"
+      src="https://res.cloudinary.com/jimshapedcoding/image/upload/v1597332609/android-icon-192x192_ove2a7.png"
+      alt=""
     />
 
     <!-- Form Title -->
@@ -47,6 +45,14 @@ block content %}
     <!-- Submit Button -->
     <div class="form-group">
       {{ form.submit(class="btn btn-lg btn-block btn-primary") }}
+    </div>
+
+    <!-- Login Redirect -->
+    <div class="checkbox my-3">
+      <h6>Already have an account?</h6>
+      <a class="btn btn-sm btn-secondary" href="{{ url_for('login_page') }}"
+        >Login</a
+      >
     </div>
   </form>
 </div>

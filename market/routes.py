@@ -1,8 +1,10 @@
 from market import app
+from market import db
 from flask import render_template, redirect, url_for, flash
 from market.models import Item, User
 from market.forms import RegistrationForm
-from market import db
+from market.forms import LoginForm
+from flask_login import login_user, logout_user, login_required
 
 
 @app.route("/")
@@ -12,6 +14,7 @@ def home_page():
 
 
 @app.route("/market")
+@login_required
 def market_page():
     items = Item.query.all()
     return render_template("market.html", items=items)
@@ -25,12 +28,18 @@ def register_page():
         user_to_create = User(
             username=form.username.data,
             email_address=form.email_address.data,
-            password_hash=form.password1.data,
+            password=form.password1.data,
         )
 
         # Add the user to the session and commit the changes to the database
         db.session.add(user_to_create)
         db.session.commit()
+
+        login_user(user_to_create)
+        flash(
+            f"Account created successfully! You are now logged in as: {user_to_create.username}",
+            category="success",
+        )
 
         # Redirect to the market page after successful registration
         return redirect(url_for("market_page"))
@@ -41,3 +50,35 @@ def register_page():
                 flash(err_msg, category="danger")
 
     return render_template("register.html", form=form)
+
+
+@app.route("/login", methods=["GET", "POST"])
+def login_page():
+    form = LoginForm()
+    if form.validate_on_submit():
+        attempted_user = User.query.filter_by(username=form.username.data).first()
+
+        # Check if the user exists and the password is correct
+        if attempted_user and attempted_user.check_password_correction(
+            attempted_password=form.password.data
+        ):
+            login_user(attempted_user)
+            flash(
+                f"Success! You are logged in as: {attempted_user.username}",
+                category="success",
+            )
+            return redirect(url_for("market_page"))
+        else:
+            flash(
+                "Username and password are not match! Please try again",
+                category="danger",
+            )
+
+    return render_template("login.html", form=form)
+
+
+@app.route("/logout")
+def logout_page():
+    logout_user()
+    flash("You have been logged out!", category="info")
+    return redirect(url_for("home_page"))

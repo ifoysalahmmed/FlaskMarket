@@ -23,10 +23,8 @@ class RegistrationForm(FlaskForm):
     username = StringField(
         label="Username:",
         validators=[
-            DataRequired(message="Username is required."),
-            Length(
-                min=2, max=30, message="Username must be between 2 and 30 characters."
-            ),
+            DataRequired(),
+            Length(min=2, max=30),
         ],
     )
 
@@ -34,9 +32,9 @@ class RegistrationForm(FlaskForm):
     email_address = StringField(
         label="Email:",
         validators=[
-            DataRequired(message="Email is required."),
-            Email(message="Invalid email address."),
-            Length(max=50, message="Email must be less than 50 characters."),
+            DataRequired(),
+            Email(),
+            Length(max=50),
         ],
     )
 
@@ -44,10 +42,8 @@ class RegistrationForm(FlaskForm):
     password1 = PasswordField(
         label="Password:",
         validators=[
-            DataRequired(message="Password is required."),
-            Length(
-                min=6, max=60, message="Password must be between 6 and 60 characters."
-            ),
+            DataRequired(),
+            Length(min=6, max=60),
         ],
     )
 
@@ -55,10 +51,27 @@ class RegistrationForm(FlaskForm):
     password2 = PasswordField(
         label="Confirm Password:",
         validators=[
-            DataRequired(message="Please confirm your password."),
-            EqualTo("password1", message="Passwords must match."),
+            DataRequired(),
+            EqualTo("password1"),
         ],
     )
 
     # Submit button
     submit = SubmitField(label="Create Account")
+
+
+class LoginForm(FlaskForm):
+    # Username field with required validation
+    username = StringField(
+        label="Username:",
+        validators=[DataRequired()],
+    )
+
+    # Password field with required validation
+    password = PasswordField(
+        label="Password:",
+        validators=[DataRequired()],
+    )
+
+    # Submit button
+    submit = SubmitField(label="Sign In")
