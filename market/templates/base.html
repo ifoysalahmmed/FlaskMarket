@@ -93,19 +93,24 @@
     </nav>
 
     <!-- Main Content -->
-    <div class="container mt-4 text-center">
+    <div class="mt-5" style="margin-left: 50px; margin-right: 50px">
       {% with messages = get_flashed_messages(with_categories = true) %} {% if
       messages %} {% for category, message in messages %}
-      <div class="alert alert-{{ category }}">
-        <button
-          type="button"
-          class="m-2 mb-1 close"
-          data-dismiss="alert"
-          aria-label="Close"
+      <div class="d-flex justify-content-center" style="position: relative; z-index: 10;">
+        <div
+          class="alert alert-{{ category }} text-center"
+          style="width: 50%; position: absolute; top: 0;"
         >
-          <span aria-hidden="true">&times;</span>
-        </button>
-        {{ message }}
+          <button
+        type="button"
+        class="close"
+        data-dismiss="alert"
+        aria-label="Close"
+          >
+        <span aria-hidden="true">&times;</span>
+          </button>
+          {{ message }}
+        </div>
       </div>
       {% endfor %} {% endif %} {% endwith %} {% block content %} {% endblock %}
     </div>

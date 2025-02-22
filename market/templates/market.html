@@ -1,32 +1,50 @@
 {% extends "base.html" %} {% block title %} Market Page {% endblock %} {% block
 content %}
-<div class="container mt-5">
-  <h1 class="display-4 text-center">Market Page</h1>
-
-  <table class="table table-dark table-hover mt-4">
-    <thead>
-      <tr>
-        <th scope="col">ID</th>
-        <th scope="col">Name</th>
-        <th scope="col">Barcode</th>
-        <th scope="col">Price</th>
-        <th scope="col">Options</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for item in items %}
-      <tr>
-        <td>{{ item.id }}</td>
-        <td>{{ item.name }}</td>
-        <td>{{ item.barcode }}</td>
-        <td>${{ item.price }}</td>
-        <td>
-          <button class="btn btn-sm btn-outline-info">More Info</button>
-          <button class="btn btn-sm btn-outline-success">Purchase</button>
-        </td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
+<div class="row">
+  <div class="col-8">
+    <h2>Available Items on the Market</h2>
+    <p>CLick on one of the items to start buying</p>
+    <table class="table table-dark table-hover mt-4 text-center">
+      <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Name</th>
+          <th scope="col">Barcode</th>
+          <th scope="col">Price</th>
+          <th scope="col">Options</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in items %} {% include 'includes/items_modal.html' %}
+        <tr>
+          <td>{{ item.id }}</td>
+          <td>{{ item.name }}</td>
+          <td>{{ item.barcode }}</td>
+          <td>${{ item.price }}</td>
+          <td>
+            <button
+              class="btn btn-sm btn-outline-info"
+              data-toggle="modal"
+              data-target="#itemInfoModal-{{ item.id }}"
+            >
+              More Info
+            </button>
+            <button
+              class="btn btn-sm btn-outline-success"
+              data-toggle="modal"
+              data-target="#itemPurchaseModal-{{ item.id }}"
+            >
+              Purchase
+            </button>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <div class="col-4">
+    <h2>Owned Items</h2>
+    <p class="font-md">CLick on sell item to put an item back on the market</p>
+  </div>
 </div>
 {% endblock %}
